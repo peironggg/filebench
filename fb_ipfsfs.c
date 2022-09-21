@@ -48,15 +48,15 @@ int fb_ipfs_write(char *path, caddr_t iobuf, fbint_t iosize, off64_t offset)
     char *url = (char *)malloc(150 * sizeof(char));
     if (offset > 0)
     {
-      size_t needed = snprintf(NULL, 0, "http://localhost:5001/api/v0/files/write?arg=%s&create=true&offset=%zu", path, offset);
+      size_t needed = snprintf(NULL, 0, "http://localhost:5001/api/v0/files/write?arg=%s&create=true&parents=true&offset=%zu", path, offset);
       url = malloc(needed + 1);
-      sprintf(url, "http://localhost:5001/api/v0/files/write?arg=%s&create=true&offset=%zu", path, offset);
+      sprintf(url, "http://localhost:5001/api/v0/files/write?arg=%s&create=true&parents=true&offset=%zu", path, offset);
     }
     else
     {
-      size_t needed = snprintf(NULL, 0, "http://localhost:5001/api/v0/files/write?arg=%s&create=true", path);
+      size_t needed = snprintf(NULL, 0, "http://localhost:5001/api/v0/files/write?arg=%s&create=true&parents=true", path);
       url = malloc(needed + 1);
-      sprintf(url, "http://localhost:5001/api/v0/files/write?arg=%s&create=true", path);
+      sprintf(url, "http://localhost:5001/api/v0/files/write?arg=%s&create=true&parents=true", path);
     }
 
     curl_easy_setopt(curl, CURLOPT_URL, url);
@@ -135,7 +135,7 @@ int fb_ipfs_read(char *path, caddr_t iobuf, fbint_t iosize, off64_t fileoffset)
 
   curl_global_cleanup();
 
-  return chunk.size;
+  return 0;
 }
 
 int fb_ipfs_generic_post(char *url)
