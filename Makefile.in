@@ -116,7 +116,7 @@ am_filebench_OBJECTS = eventgen.$(OBJEXT) fb_avl.$(OBJEXT) \
 	stats.$(OBJEXT) threadflow.$(OBJEXT) utils.$(OBJEXT) \
 	vars.$(OBJEXT) ioprio.$(OBJEXT) fbtime.$(OBJEXT) \
 	fb_cvar.$(OBJEXT) aslr.$(OBJEXT) cvars/mtwist/mtwist.$(OBJEXT) \
-	fb_ipfsfs.$(OBJEXT)
+	fb_ipfsfs.$(OBJEXT) cJSON.$(OBJEXT)
 filebench_OBJECTS = $(am_filebench_OBJECTS)
 filebench_LDADD = $(LDADD)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -138,13 +138,14 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/aslr.Po ./$(DEPDIR)/eventgen.Po \
-	./$(DEPDIR)/fb_avl.Po ./$(DEPDIR)/fb_cvar.Po \
-	./$(DEPDIR)/fb_ipfsfs.Po ./$(DEPDIR)/fb_localfs.Po \
-	./$(DEPDIR)/fb_random.Po ./$(DEPDIR)/fbtime.Po \
-	./$(DEPDIR)/fileset.Po ./$(DEPDIR)/flowop.Po \
-	./$(DEPDIR)/flowop_library.Po ./$(DEPDIR)/gamma_dist.Po \
-	./$(DEPDIR)/ioprio.Po ./$(DEPDIR)/ipc.Po ./$(DEPDIR)/misc.Po \
+am__depfiles_remade = ./$(DEPDIR)/aslr.Po ./$(DEPDIR)/cJSON.Po \
+	./$(DEPDIR)/eventgen.Po ./$(DEPDIR)/fb_avl.Po \
+	./$(DEPDIR)/fb_cvar.Po ./$(DEPDIR)/fb_ipfsfs.Po \
+	./$(DEPDIR)/fb_localfs.Po ./$(DEPDIR)/fb_random.Po \
+	./$(DEPDIR)/fbtime.Po ./$(DEPDIR)/fileset.Po \
+	./$(DEPDIR)/flowop.Po ./$(DEPDIR)/flowop_library.Po \
+	./$(DEPDIR)/gamma_dist.Po ./$(DEPDIR)/ioprio.Po \
+	./$(DEPDIR)/ipc.Po ./$(DEPDIR)/misc.Po \
 	./$(DEPDIR)/multi_client_sync.Po ./$(DEPDIR)/parser_gram.Po \
 	./$(DEPDIR)/parser_lex.Po ./$(DEPDIR)/procflow.Po \
 	./$(DEPDIR)/stats.Po ./$(DEPDIR)/threadflow.Po \
@@ -416,7 +417,8 @@ filebench_SOURCES = eventgen.c fb_avl.c fb_localfs.c \
 		    fbtime.c fbtime.h \
 		    fb_cvar.c fb_cvar.h aslr.c aslr.h \
 		    cvars/mtwist/mtwist.c cvars/mtwist/mtwist.h \
-				fb_ipfsfs.c fb_ipfsfs.h
+				fb_ipfsfs.c fb_ipfsfs.h \
+				cJSON.c cJSON.h
 
 EXTRA_DIST = LICENSE
 ACLOCAL_AMFLAGS = -I m4
@@ -549,6 +551,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aslr.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cJSON.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eventgen.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fb_avl.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fb_cvar.Po@am__quote@ # am--include-marker
@@ -968,6 +971,7 @@ clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 		-rm -f ./$(DEPDIR)/aslr.Po
+	-rm -f ./$(DEPDIR)/cJSON.Po
 	-rm -f ./$(DEPDIR)/eventgen.Po
 	-rm -f ./$(DEPDIR)/fb_avl.Po
 	-rm -f ./$(DEPDIR)/fb_cvar.Po
@@ -1039,6 +1043,7 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
 		-rm -f ./$(DEPDIR)/aslr.Po
+	-rm -f ./$(DEPDIR)/cJSON.Po
 	-rm -f ./$(DEPDIR)/eventgen.Po
 	-rm -f ./$(DEPDIR)/fb_avl.Po
 	-rm -f ./$(DEPDIR)/fb_cvar.Po

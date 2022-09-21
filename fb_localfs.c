@@ -182,7 +182,7 @@ fb_lfs_freemem(fb_fdesc_t *fd, off64_t size)
 static int
 fb_lfs_pread(fb_fdesc_t *fd, caddr_t iobuf, fbint_t iosize, off64_t fileoffset)
 {
-	return fb_ipfs_read(fd->fd_path, iobuf, iosize, fileoffset);
+	return fb_ipfs_read(fd, iobuf, iosize, fileoffset);
 	// return (pread64(fd->fd_num, iobuf, iosize, fileoffset));
 }
 
@@ -192,7 +192,7 @@ fb_lfs_pread(fb_fdesc_t *fd, caddr_t iobuf, fbint_t iosize, off64_t fileoffset)
 static int
 fb_lfs_read(fb_fdesc_t *fd, caddr_t iobuf, fbint_t iosize)
 {
-	return fb_ipfs_read(fd->fd_path, iobuf, iosize, 0);
+	return fb_ipfs_read(fd, iobuf, iosize, 0);
 	// return (read(fd->fd_num, iobuf, iosize));
 }
 
@@ -501,7 +501,12 @@ fb_lfsflow_aiowait(threadflow_t *threadflow, flowop_t *flowop)
 static int
 fb_lfs_open(fb_fdesc_t *fd, char *path, int flags, int perms)
 {
+	fd->fd_ptr = path;
+	fd->fd_fileoffset = 0;
+	fd->fd_filesize = fb_ipfs_filesize(fd);
+	// non-NULL value assigned to avoid triggering reopen error
 	fd->fd_path = path;
+
 	return (FILEBENCH_OK);
 	// if ((fd->fd_num = open64(path, flags, perms)) < 0)
 	// 	return (FILEBENCH_ERROR);
@@ -605,7 +610,7 @@ fb_lfs_recur_rm(char *path)
 	size_t needed = snprintf(NULL, 0, "http://localhost:5001/api/v0/files/rm?arg=%s&force=true", path);
 	char *url = malloc(needed + 1);
 	sprintf(url, "http://localhost:5001/api/v0/files/rm?arg=%s&force=true", path);
-	return fb_ipfs_generic_post(url);
+	fb_ipfs_generic_post(url);
 }
 
 /*
@@ -662,7 +667,7 @@ fb_lfs_stat(char *path, struct stat64 *statbufp)
 static int
 fb_lfs_pwrite(fb_fdesc_t *fd, caddr_t iobuf, fbint_t iosize, off64_t offset)
 {
-	return fb_ipfs_write(fd->fd_path, iobuf, iosize, offset);
+	return fb_ipfs_write(fd, iobuf, iosize, offset);
 	// return (pwrite64(fd->fd_num, iobuf, iosize, offset));
 }
 
@@ -672,7 +677,7 @@ fb_lfs_pwrite(fb_fdesc_t *fd, caddr_t iobuf, fbint_t iosize, off64_t offset)
 static int
 fb_lfs_write(fb_fdesc_t *fd, caddr_t iobuf, fbint_t iosize)
 {
-	return fb_ipfs_write(fd->fd_path, iobuf, iosize, 0);
+	return fb_ipfs_write(fd, iobuf, iosize, 0);
 	// return (write(fd->fd_num, iobuf, iosize));
 }
 

@@ -41,11 +41,13 @@ typedef enum fb_plugin_type
 } fb_plugin_type_t;
 
 /* universal file descriptor for both local and nfs file systems */
-typedef union fb_fdesc
+typedef struct fb_fdesc
 {
 	int fd_num;		 /* OS file descriptor number */
 	void *fd_ptr;	 /* Pointer to nfs information block */
 	char *fd_path; /* Path to IPFS file */
+	fbint_t fd_filesize;
+	fbint_t fd_fileoffset;
 } fb_fdesc_t;
 
 typedef struct aiolist aiol_t;
