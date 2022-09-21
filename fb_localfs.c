@@ -501,7 +501,6 @@ fb_lfsflow_aiowait(threadflow_t *threadflow, flowop_t *flowop)
 static int
 fb_lfs_open(fb_fdesc_t *fd, char *path, int flags, int perms)
 {
-	fd->fd_ptr = 1;
 	fd->fd_path = path;
 	return (FILEBENCH_OK);
 	// if ((fd->fd_num = open64(path, flags, perms)) < 0)
@@ -603,14 +602,10 @@ fb_lfs_rmdir(char *path)
 static void
 fb_lfs_recur_rm(char *path)
 {
-	char cmd[MAXPATHLEN];
-
-	(void)snprintf(cmd, sizeof(cmd), "rm -rf %s", path);
-
-	/* We ignore system()'s return value */
-	if (system(cmd))
-		;
-	return;
+	size_t needed = snprintf(NULL, 0, "http://localhost:5001/api/v0/files/rm?arg=%s&force=true", path);
+	char *url = malloc(needed + 1);
+	sprintf(url, "http://localhost:5001/api/v0/files/rm?arg=%s&force=true", path);
+	return fb_ipfs_generic_post(url);
 }
 
 /*
@@ -639,7 +634,8 @@ fb_lfs_readdir(DIR *dirp)
 static int
 fb_lfs_closedir(DIR *dirp)
 {
-	return (closedir(dirp));
+	return (FILEBENCH_OK);
+	// return (closedir(dirp));
 }
 
 /*
