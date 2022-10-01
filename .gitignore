@@ -12,6 +12,7 @@ fb_cvar.o
 fb_localfs.o
 fb_random.o
 filebench
+filebench_ipfs
 fileset.o
 flowop.o
 flowop_library.o

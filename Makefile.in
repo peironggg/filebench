@@ -88,7 +88,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = filebench$(EXEEXT)
+bin_PROGRAMS = filebench_ipfs$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -108,7 +108,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_filebench_OBJECTS = eventgen.$(OBJEXT) fb_avl.$(OBJEXT) \
+am_filebench_ipfs_OBJECTS = eventgen.$(OBJEXT) fb_avl.$(OBJEXT) \
 	fb_localfs.$(OBJEXT) fb_random.$(OBJEXT) fileset.$(OBJEXT) \
 	flowop.$(OBJEXT) flowop_library.$(OBJEXT) gamma_dist.$(OBJEXT) \
 	ipc.$(OBJEXT) misc.$(OBJEXT) multi_client_sync.$(OBJEXT) \
@@ -117,8 +117,8 @@ am_filebench_OBJECTS = eventgen.$(OBJEXT) fb_avl.$(OBJEXT) \
 	vars.$(OBJEXT) ioprio.$(OBJEXT) fbtime.$(OBJEXT) \
 	fb_cvar.$(OBJEXT) aslr.$(OBJEXT) cvars/mtwist/mtwist.$(OBJEXT) \
 	fb_ipfsfs.$(OBJEXT) cJSON.$(OBJEXT)
-filebench_OBJECTS = $(am_filebench_OBJECTS)
-filebench_LDADD = $(LDADD)
+filebench_ipfs_OBJECTS = $(am_filebench_ipfs_OBJECTS)
+filebench_ipfs_LDADD = $(LDADD)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -187,8 +187,8 @@ AM_V_YACC = $(am__v_YACC_@AM_V@)
 am__v_YACC_ = $(am__v_YACC_@AM_DEFAULT_V@)
 am__v_YACC_0 = @echo "  YACC    " $@;
 am__v_YACC_1 = 
-SOURCES = $(filebench_SOURCES)
-DIST_SOURCES = $(filebench_SOURCES)
+SOURCES = $(filebench_ipfs_SOURCES)
+DIST_SOURCES = $(filebench_ipfs_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -381,7 +381,7 @@ htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
-libdir = @libdir@/filebench
+libdir = @libdir@/filebench_ipfs
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
@@ -405,7 +405,7 @@ SUBDIRS = workloads cvars
 
 # we depend on this lex & yacc generated file
 BUILT_SOURCES = parser_gram.h
-filebench_SOURCES = eventgen.c fb_avl.c fb_localfs.c \
+filebench_ipfs_SOURCES = eventgen.c fb_avl.c fb_localfs.c \
 		    fb_random.c fileset.c flowop.c flowop_library.c \
 		    gamma_dist.c ipc.c misc.c multi_client_sync.c \
 		    parser_gram.y parser_lex.l procflow.c stats.c \
@@ -539,9 +539,9 @@ cvars/mtwist/$(DEPDIR)/$(am__dirstamp):
 cvars/mtwist/mtwist.$(OBJEXT): cvars/mtwist/$(am__dirstamp) \
 	cvars/mtwist/$(DEPDIR)/$(am__dirstamp)
 
-filebench$(EXEEXT): $(filebench_OBJECTS) $(filebench_DEPENDENCIES) $(EXTRA_filebench_DEPENDENCIES) 
-	@rm -f filebench$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(filebench_OBJECTS) $(filebench_LDADD) $(LIBS)
+filebench_ipfs$(EXEEXT): $(filebench_ipfs_OBJECTS) $(filebench_ipfs_DEPENDENCIES) $(EXTRA_filebench_ipfs_DEPENDENCIES) 
+	@rm -f filebench_ipfs$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(filebench_ipfs_OBJECTS) $(filebench_ipfs_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
